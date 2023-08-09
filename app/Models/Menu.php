@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Menu extends Model
+class Menu extends Model implements Auditable
 {
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'coddoc',
@@ -27,5 +29,10 @@ class Menu extends Model
     public function children()
     {
         return $this->hasMany(self::class, 'menu_id');
+    }
+
+    public function docs()
+    {
+        return $this->hasMany(Doc::class, 'menu_id');
     }
 }

@@ -9,6 +9,7 @@
 .env.backup
 .env.production
 .phpunit.result.cache
+model_petfood.mwb.bak
 Homestead.json
 Homestead.yaml
 auth.json

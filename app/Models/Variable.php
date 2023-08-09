@@ -6,18 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Permission extends Model implements Auditable
+class Variable extends Model implements Auditable
 {
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
+        'cod',
         'name',
+        'text',
+        'concept',
+        'value',
+        'variable_id'
     ];
 
-    public function roles()
+    public function variable()
     {
-        return $this->belongsToMany(Role::class, 'role_permission')
-                    ->withPivot('menu_id');
+        return $this->belongsTo(Variable::class, 'variable_id');
     }
 }

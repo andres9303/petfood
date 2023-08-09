@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Permission extends Model implements Auditable
+class Animal extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory;    
     use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',
+        'state',
     ];
 
-    public function roles()
+    public function races()
     {
-        return $this->belongsToMany(Role::class, 'role_permission')
-                    ->withPivot('menu_id');
+        return $this->hasMany('App\Models\Race');
     }
 }
