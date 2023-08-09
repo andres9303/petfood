@@ -38,13 +38,13 @@ PetFood es una aplicación web de gestión diseñada para brindar un control com
 
 - Clona este repositorio
 
-- Ejecuta ´composer install´ para instalar las dependencias de Laravel.
+- Ejecuta `composer install` para instalar las dependencias de Laravel.
 
 - Copia el archivo ***.env.example*** y renómbralo a ***.env***. Luego, configura las variables de entorno, incluida la conexión a la base de datos.
 
-- Ejecuta ´php artisan key:generate´ para generar la clave de la aplicación.
+- Ejecuta `php artisan key:generate` para generar la clave de la aplicación.
 
-- Ejecuta ´php artisan migrate --seed´ para crear las tablas de la base de datos y llenarlas con datos base.
+- Ejecuta `php artisan migrate --seed` para crear las tablas de la base de datos y llenarlas con datos base.
 
 ## Licencia
 

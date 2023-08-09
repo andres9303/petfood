@@ -15,31 +15,57 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
+        <style>
+            .menu-container {
+              height: 100%;
+              overflow-y: auto;
+            }
+            .menu-container::-webkit-scrollbar {
+              width: 0.25rem;
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+            .menu-container::-webkit-scrollbar-thumb {
+              background-color: rgba(255, 255, 255, 0.5);
+            }
+            .menu-container::-webkit-scrollbar-thumb:hover {
+              background-color: rgba(255, 255, 255, 0.75);
+            }
+        </style>
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
-
-        <div class="min-h-screen bg-gray-100">
+        <div class="h-screen min-h-screen flex">
+            <x-banner />
             @livewire('navigation-menu')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+            <div class="w-full h-full overflow-auto bg-gray-200">
+                <div class=" px-1 py-1">
+                    <!-- Page Heading -->
+                    <header class="bg-alternative-500 shadow">
+                        <div class="m-0 py-4 px-4 sm:px-6 lg:px-8">
+                            <h2 class="font-semibold text-xl text-contrast-alternative-500 leading-tight">
+                                <i class="fas fa-link"></i>  {{ $header }}
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <!-- Page Content -->
+                <main>
+                    <div class="py-1 px-1">
+                        <div class="mx-auto">
+                            <div class="bg-primary-100 overflow-hidden shadow-xl sm:rounded-lg">
+                                {{ $slot }}
+                            </div>
+                        </div>
                     </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                </main>
+            </div>
         </div>
 
         @stack('modals')
 
         @livewireScripts
+        
+        @stack('scripts')
     </body>
 </html>
