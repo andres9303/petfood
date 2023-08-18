@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->unsignedBigInteger('menu_id');
-            $table->unsignedBigInteger('pet_id');
+            $table->unsignedBigInteger('pet_id')->nullable();
             $table->unsignedBigInteger('person_id')->nullable();
-            $table->string('cod')->nullable();
+            $table->string('code')->nullable();
             $table->integer('num')->nullable();
             $table->dateTime('date')->nullable();
             $table->dateTime('date2')->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->decimal('cant', 20, 2)->nullable();
             $table->decimal('saldo', 20, 2)->nullable();
             $table->decimal('value', 20, 2)->nullable();
-            $table->unsignedBigInteger('person2_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('item_id')->nullable();
             $table->unsignedBigInteger('doc_id')->nullable();
             $table->timestamps();
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->foreign('pet_id')->references('id')->on('pets')->onDelete('cascade');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('set null');
-            $table->foreign('person2_id')->references('id')->on('people')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('set null');
             $table->foreign('doc_id')->references('id')->on('docs')->onDelete('set null');
         });

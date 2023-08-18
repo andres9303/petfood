@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code', 20)->nullable();
             $table->string('name', 100);
-            $table->decimal('factor', 16, 4);
+            $table->decimal('factor', 22, 4)->default(0);
+            $table->decimal('valueu', 22, 4)->default(0);
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->integer('state')->default(1);
             $table->boolean('isinventory')->default(false);

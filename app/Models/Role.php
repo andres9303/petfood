@@ -26,4 +26,14 @@ class Role extends Model implements Auditable
         return $this->belongsToMany(Menu::class, 'role_permission')
                     ->withPivot('permission_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_role');
+    }
+
+    public function shortcuts()
+    {
+        return $this->belongsToMany(Menu::class, 'shortcuts');
+    }
 }

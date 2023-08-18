@@ -35,9 +35,4 @@ class Person extends Model implements Auditable
     {
         return $this->hasMany(Doc::class, 'person_id');
     }
-
-    public function docs2()
-    {
-        return $this->hasMany(Doc::class, 'person2_id');
-    }
 }

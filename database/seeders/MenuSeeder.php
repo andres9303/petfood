@@ -31,7 +31,7 @@ class MenuSeeder extends Seeder
             ['id' => 401, 'coddoc' => 'TMS', 'text' => 'Tipos Mascotas', 'route' => 'animal', 'active' => 'animal*', 'icon' => 'fas fa-paw', 'order' => 1, 'menu_id' => 400],
             ['id' => 402, 'coddoc' => 'RZA', 'text' => 'Razas', 'route' => 'race', 'active' => 'race*', 'icon' => 'fab fa-ravelry', 'order' => 2, 'menu_id' => 400],
             ['id' => 403, 'coddoc' => 'MSC', 'text' => 'Mascotas', 'route' => 'pet', 'active' => 'pet*', 'icon' => 'fas fa-cat', 'order' => 3, 'menu_id' => 400],
-            ['id' => 500, 'coddoc' => NULL, 'text' => 'Gestión clientes', 'route' => NULL, 'active' => null, 'icon' => 'far fa-handshake', 'order' => 4, 'menu_id' => NULL],
+            ['id' => 500, 'coddoc' => NULL, 'text' => 'Gestión pedidos', 'route' => NULL, 'active' => null, 'icon' => 'far fa-handshake', 'order' => 4, 'menu_id' => NULL],
             ['id' => 501, 'coddoc' => 'PED', 'text' => 'Pedidos', 'route' => 'order', 'active' => 'order*', 'icon' => 'fas fa-shopping-cart', 'order' => 1, 'menu_id' => 500],
             ['id' => 502, 'coddoc' => 'PRP', 'text' => 'Preparaciones', 'route' => 'produce', 'active' => 'produce*', 'icon' => 'fas fa-mitten', 'order' => 2, 'menu_id' => 500],
             ['id' => 503, 'coddoc' => 'DSP', 'text' => 'Despacho', 'route' => 'dispatch', 'active' => 'dispatch*', 'icon' => 'fas fa-fax', 'order' => 3, 'menu_id' => 500],            

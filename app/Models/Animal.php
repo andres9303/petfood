@@ -18,6 +18,6 @@ class Animal extends Model implements Auditable
 
     public function races()
     {
-        return $this->hasMany('App\Models\Race');
+        return $this->hasMany(Race::class);
     }
 }

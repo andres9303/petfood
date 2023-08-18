@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -15,7 +16,7 @@ class Doc extends Model implements Auditable
         'type',
         'menu_id',
         'person_id',
-        'cod',
+        'code',
         'num',
         'date',
         'date2',
@@ -26,7 +27,7 @@ class Doc extends Model implements Auditable
         'text',
         'concept',
         'value',
-        'person2_id',
+        'user_id',
         'ref',
         'cant',
         'saldo',
@@ -34,6 +35,11 @@ class Doc extends Model implements Auditable
         'doc_id',
         'pet_id'
     ];
+
+    public function getFormattedDateAttribute()
+    {
+        return Carbon::parse($this->attributes['date'])->format('d/m/Y');
+    }
 
     public function menu()
     {
@@ -45,9 +51,9 @@ class Doc extends Model implements Auditable
         return $this->belongsTo(Person::class, 'person_id');
     }
 
-    public function person2()
+    public function user()
     {
-        return $this->belongsTo(Person::class, 'person2_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function item()
@@ -62,7 +68,7 @@ class Doc extends Model implements Auditable
 
     public function mvtos()
     {
-        return $this->hasMany(Mvto::class);
+        return $this->hasMany(Mvto::class, 'doc_id', 'id');
     }
 
     public function pet()

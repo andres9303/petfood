@@ -3,63 +3,39 @@
 namespace App\Http\Controllers\security;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('security.menu.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function edit(Menu $menu)
     {
-        //
+        return view('security.menu.edit', compact('menu'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, Menu $menu)
     {
-        //
-    }
+        $request->validate([
+            'text' => ['required', 'string', 'max:200'],
+            'icon' => ['required', 'string', 'max:100'],
+        ]);
+        
+        DB::beginTransaction();
+        try {
+            $menu->text = $request->text;
+            $menu->icon = $request->icon;
+            $menu->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            DB::commit();
+            return redirect()->route('menu.index')->with('success', 'Se ha actualizado la información del formulario correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('menu.index')->with('error', 'Ha ocurrido un error al actualizar la información del formulario.');
+        }
     }
 }

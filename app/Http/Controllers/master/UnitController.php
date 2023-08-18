@@ -3,63 +3,84 @@
 namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
+use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UnitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('master.unit.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $units = Unit::where('state', 1)->get();
+
+        return view('master.unit.create', compact('units'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required|string|max:255',
+        ]);
+
+        $state = 0;
+        if ($request->state) {
+            $state = $request->state;
+        }
+
+        DB::beginTransaction();
+        try {
+            Unit::create([
+                'name' => $request->name,
+                'unit_id' => $request->unit_id,
+                'factor' => $request->factor,
+                'state' => $state,
+            ]);
+
+            DB::commit();
+            return redirect()->route('unit.index')->with('success', 'Se ha registrado la unidad correctamente.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('error', 'Ha ocurrido al registrar la unidad');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Unit $unit)
     {
-        //
+        $units = Unit::where('state', 1)->get();
+
+        return view('master.unit.edit', compact('unit', 'units'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Unit $unit)
     {
-        //
-    }
+        $request->validate([
+            'name' =>'required|string|max:255',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $state = 0;
+        if ($request->state) {
+            $state = $request->state;
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        DB::beginTransaction();
+        try {
+            $unit->update([
+                'name' => $request->name,
+                'unit_id' => $request->unit_id,
+                'factor' => $request->factor,
+                'state' => $state,
+            ]);
+
+            DB::commit();
+            return redirect()->route('unit.index')->with('success', 'Se ha actualizado la unidad correctamente.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('error', 'Ha ocurrido un error al actualizar la unidad');
+        }
     }
 }

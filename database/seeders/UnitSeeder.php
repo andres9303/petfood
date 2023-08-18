@@ -24,6 +24,9 @@ class UnitSeeder extends Seeder
             ['id' => 7, 'name' => 'Mol [mol]', 'factor' => 1, 'state' => 1, 'unit_id' => 7],
             ['id' => 8, 'name' => 'Candela [cd]', 'factor' => 1, 'state' => 1, 'unit_id' => 8],
             ['id' => 9, 'name' => 'Gramo [gr]', 'factor' => 0.001, 'state' => 1, 'unit_id' => 4],
+            ['id' => 10, 'name' => 'Metro cúbico [m3]', 'factor' => 1, 'state' => 1, 'unit_id' => 10],
+            ['id' => 11, 'name' => 'Litro [lt]', 'factor' => 0.001, 'state' => 1, 'unit_id' => 10],
+            ['id' => 12, 'name' => 'Libra [lb]', 'factor' => 0.2, 'state' => 1, 'unit_id' => 4],
         ];
 
         DB::table('units')->insert($units);

@@ -36,8 +36,14 @@ class ItemSeeder extends Seeder
 
         Catalog::create([
             'id' => 203,
-            'name' => 'categoria producto',
-            'text' => 'categorías de los productos'
+            'name' => 'Categoria producto',
+            'text' => 'Categorías de los productos'
+        ]);
+
+        Catalog::create([
+            'id' => 403,
+            'name' => 'Seguimiento mascotas',
+            'text' => 'Conceptos de seguimiento mascotas'
         ]);
     }
 }

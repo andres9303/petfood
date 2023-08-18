@@ -21,7 +21,6 @@ return new class extends Migration
             $table->date('birth')->nullable();
             $table->boolean('isclient')->default(false);
             $table->boolean('issupplier')->default(false);
-            $table->boolean('isoperator')->default(false);
             $table->tinyInteger('state')->default(1)->unsigned();
             $table->timestamps();
         });

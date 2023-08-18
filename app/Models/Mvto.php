@@ -16,6 +16,7 @@ class Mvto extends Model implements Auditable
         'product_id',
         'unit_id',
         'cant',
+        'cant_src',
         'saldo',
         'valueu',
         'iva',
@@ -31,7 +32,8 @@ class Mvto extends Model implements Auditable
         'iva2',
         'valuet2',
         'text2',
-        'mvto_id'
+        'mvto_id',
+        'concept',
     ];
 
     public function doc()

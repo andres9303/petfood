@@ -28,8 +28,10 @@ return [
          * https://flatpickr.js.org
          */
         'flatpickr' => [
+            'js'      => 'https://cdn.jsdelivr.net/npm/flatpickr',
+            'css'     => 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
             'locales' => [
-                'pt_BR' => [
+                'pt_CO' => [
                     'locale'     => 'pt',
                     'dateFormat' => 'd/m/Y H:i',
                     'enableTime' => true,
@@ -77,7 +79,7 @@ return [
     |
     */
 
-    'filter' => 'inline',
+    'filter' => 'outside',
 
     /*
     |--------------------------------------------------------------------------

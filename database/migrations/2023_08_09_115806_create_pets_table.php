@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('health')->nullable();
             $table->string('reproductive')->nullable();
             $table->string('text')->nullable();
+            $table->integer('state')->default(0);
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('race_id');
             $table->timestamps();

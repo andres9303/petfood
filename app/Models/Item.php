@@ -27,4 +27,9 @@ class Item extends Model implements Auditable
     {
         return $this->hasMany(Doc::class, 'item_id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'class');
+    }
 }

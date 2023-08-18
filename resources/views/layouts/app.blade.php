@@ -53,7 +53,7 @@
                 <main>
                     <div class="py-1 px-1">
                         <div class="mx-auto">
-                            <div class="bg-primary-100 overflow-hidden shadow-xl sm:rounded-lg">
+                            <div class="bg-primary-100 overflow-hidden shadow-xl sm:rounded-lg text-gray-500">
                                 {{ $slot }}
                             </div>
                         </div>

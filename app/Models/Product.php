@@ -16,6 +16,7 @@ class Product extends Model implements Auditable
         'name',
         'factor',
         'unit_id',
+        'valueu',
         'state',
         'isinventory',
         'class',
@@ -65,6 +66,6 @@ class Product extends Model implements Auditable
 
     public function recipes()
     {
-        return $this->hasMany(Recipe::class);
+        return $this->hasMany(Recipe::class, 'product_id');
     }
 }

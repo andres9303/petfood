@@ -3,63 +3,123 @@
 namespace App\Http\Controllers\person;
 
 use App\Http\Controllers\Controller;
+use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('person.client.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('person.client.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required|string|max:250',
+            'code' =>'required|string|max:20',
+        ]);
+
+        $type = $request->type;
+        $route = $type == 'isclient' ? 'client.index' : 'supplier.index';
+        DB::beginTransaction();
+        try
+        {
+            $person = Person::where('code', $request->code)->first();
+            if ($person)
+            {
+                $person->update([
+                    'name' => $request->name,
+                    'address' => $request->address,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'birth' => $request->birth,
+                    $type => true,
+                ]);
+            }
+            else
+            {
+                Person::create([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                    'address' => $request->address,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'birth' => $request->birth,
+                    $type => true,
+                ]);
+            }            
+            
+            DB::commit();
+            return redirect()->route($route)->with('success', 'Se guardó correctamente la persona.');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return redirect()->route($route)->with('error', 'No se pudo guardar la persona.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Person $client)
     {
-        //
+        return view('person.client.edit', compact('client'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Person $client)
     {
-        //
+        $request->validate([
+            'name' =>'required|string|max:250',
+            'code' =>'required|string|max:20',
+        ]);
+
+        $type = $request->type;
+        $route = $type == 'isclient' ? 'client.index' : 'supplier.index';
+        DB::beginTransaction();
+        try
+        {
+            $client->update([
+                'code' => $request->code,
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'birth' => $request->birth,
+            ]);
+            
+            DB::commit();
+            return redirect()->route($route)->with('success', 'Se actualizó correctamente la persona.');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return redirect()->route($route)->with('error', 'No se pudo actualizar la persona.');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Person $client, Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $type = $request->type;
+        $route = $type == 'isclient' ? 'client.index' : 'supplier.index';
+        DB::beginTransaction();
+        try
+        {
+            $client->update([
+                $type => false,
+            ]);
+            
+            DB::commit();
+            return redirect()->route($route)->with('success', 'Se eliminó correctamente.');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return redirect()->route($route)->with('error', 'No se pudo eliminar.');
+        }
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('unit_id')->constrained();
             $table->decimal('cant', 22, 4)->default(0);
+            $table->decimal('cant_src', 22, 4)->nullable();
             $table->decimal('factor', 22, 4)->default(0);
             $table->decimal('saldo', 22, 4)->default(0);
             $table->decimal('valueu', 22, 4)->default(0);
