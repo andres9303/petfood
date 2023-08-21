@@ -5,13 +5,22 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Item;
+use App\Models\Mvto;
 use App\Models\Product;
 use App\Models\Unit;
+use App\Services\UnitConversionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    protected $unitConversionService;
+
+    public function __construct(UnitConversionService $unitConversionService)
+    {
+        $this->unitConversionService = $unitConversionService;
+    }
+    
     public function index()
     {
         return view('master.product.index');
@@ -35,22 +44,14 @@ class ProductController extends Controller
         ]);
 
         DB::beginTransaction();
-        try {
-            $isinventory = 0;
-            if ($request->isinventory) 
-                $isinventory = $request->isinventory;
-
-            $state = 0;
-            if ($request->state)
-                $state = $request->state;
-            
+        try {            
             Product::create([
                 'code' => $request->code,
                 'name' => $request->name,
                 'factor' => $request->factor,
                 'unit_id' => $request->unit_id,
-                'isinventory' => $isinventory,
-                'state' => $state,
+                'isinventory' => $request->isinventory ?? 0,
+                'state' => $request->state ?? 0,
                 'class' => $request->class,
             ]);
 
@@ -81,14 +82,19 @@ class ProductController extends Controller
 
         DB::beginTransaction();
         try {
-            $isinventory = 0;
-            if ($request->isinventory) {
-                $isinventory = $request->isinventory;
-            }
-
-            $state = 0;
-            if ($request->state) {
-                $state = $request->state;
+            if ($product->unit_id != $request->unit_id) 
+            {
+                $factor_unit = $this->unitConversionService->convert(1, $product->unit_id, $request->unit_id);
+                
+                if ($factor_unit != 0)
+                {
+                    Mvto::where(['product_id' => $product->id, 'unit2_id' => $product->unit_id])
+                        ->where('cant2', '<>', 0)->update([
+                        'unit2_id' => $request->unit_id,
+                        'cant2' => DB::raw('cant2 * ' . $factor_unit),
+                        'valueu2' => DB::raw('valueu2 / ' . $factor_unit),
+                    ]);
+                }
             }
 
             $product->update([
@@ -96,8 +102,8 @@ class ProductController extends Controller
                 'name' => $request->name,
                 'factor' => $request->factor,
                 'unit_id' => $request->unit_id,
-                'isinventory' => $isinventory,
-                'state' => $state,
+                'isinventory' => $request->isinventory ?? 0,
+                'state' => $request->state ?? 0,
                 'class' => $request->class,
             ]);
 

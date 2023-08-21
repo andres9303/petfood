@@ -25,7 +25,6 @@ return new class extends Migration
             $table->decimal('valuet', 22, 4)->default(0);
             $table->string('text', 5000)->nullable();
             $table->integer('state')->default(1);
-            $table->foreignId('product2_id')->nullable()->constrained('products')->onDelete('set null');
             $table->foreignId('unit2_id')->nullable()->constrained('units');
             $table->decimal('cant2', 22, 4)->nullable();
             $table->decimal('saldo2', 22, 4)->nullable();
@@ -36,9 +35,6 @@ return new class extends Migration
             $table->foreignId('item_id')->nullable()->constrained('items')->onDelete('set null');
             $table->foreignId('mvto_id')->nullable()->constrained('mvtos')->onDelete('set null');
             $table->integer('concept')->nullable();
-            $table->integer('ref')->nullable();
-            $table->decimal('costu', 22, 4)->nullable();
-            $table->decimal('costt', 22, 4)->nullable();
             $table->timestamps();
         });
     }

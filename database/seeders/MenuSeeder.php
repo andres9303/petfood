@@ -40,9 +40,19 @@ class MenuSeeder extends Seeder
             ['id' => 602, 'coddoc' => 'COM', 'text' => 'Compras', 'route' => 'direct-purchase', 'active' => 'direct-purchase*', 'icon' => 'fas fa-shopping-cart', 'order' => 2, 'menu_id' => 600],
             ['id' => 603,'coddoc' => 'BIL','text' => 'Gastos','route' => 'bill', 'active' => 'bill*','icon' => 'fas fa-tags','order' => 3,'menu_id' => 600],
             ['id' => 604, 'coddoc' => 'AJI', 'text' => 'Ajuste de Inventario', 'route' => 'adjustment', 'active' => 'adjustment*', 'icon' => 'fas fa-truck-loading', 'order' => 4, 'menu_id' => 600],
+            ['id' => 1000, 'coddoc' => NULL, 'text' => 'Reportes', 'route' => NULL, 'active' => null, 'icon' => 'fas fa-chart-pie', 'order' => 10, 'menu_id' => NULL],
+            ['id' => 1001, 'coddoc' => NULL, 'text' => 'Saldo inventario', 'route' => 'report.inventory', 'active' => 'report.inventory', 'icon' => 'fas fa-table', 'order' => 0, 'menu_id' => 1000],
+            ['id' => 1002, 'coddoc' => NULL, 'text' => 'Movimiento inventario', 'route' => 'report.movements', 'active' => 'report.movements*', 'icon' => 'fas fa-table', 'order' => 1, 'menu_id' => 1000],
+            ['id' => 1003, 'coddoc' => NULL, 'text' => 'Pedidos de clientes', 'route' => 'report.order', 'active' => 'report.order*', 'icon' => 'fas fa-table', 'order' => 2, 'menu_id' => 1000],
+            ['id' => 1004, 'coddoc' => NULL, 'text' => 'Compras', 'route' => 'report.purchase', 'active' => 'report.purchase*', 'icon' => 'fas fa-table', 'order' => 3, 'menu_id' => 1000],
+            ['id' => 1005, 'coddoc' => NULL, 'text' => 'Gastos', 'route' => 'report.bill', 'active' => 'report.bill*', 'icon' => 'fas fa-table', 'order' => 4, 'menu_id' => 1000],
+            ['id' => 1006, 'coddoc' => NULL, 'text' => 'Producción dietas', 'route' => 'report.production', 'active' => 'report.production*', 'icon' => 'fas fa-table', 'order' => 5, 'menu_id' => 1000],
+            ['id' => 1007, 'coddoc' => NULL, 'text' => 'Ventas', 'route' => 'report.sale', 'active' => 'report.sale*', 'icon' => 'fas fa-table', 'order' => 6, 'menu_id' => 1000],
+            ['id' => 1008, 'coddoc' => NULL, 'text' => 'Despachos por pedido', 'route' => 'report.dispatch', 'active' => 'report.dispatch*', 'icon' => 'fas fa-table', 'order' => 7, 'menu_id' => 1000],
+            ['id' => 1009, 'coddoc' => NULL, 'text' => 'Costo vs Ventas', 'route' => 'report.cost', 'active' => 'report.cost*', 'icon' => 'fas fa-table', 'order' => 8, 'menu_id' => 1000],
+            ['id' => 1010, 'coddoc' => NULL, 'text' => 'Balance mensual', 'route' => 'report.balance', 'active' => 'report.balance*', 'icon' => 'fas fa-table', 'order' => 9, 'menu_id' => 1000],
             ['id' => 9000,'coddoc' => NULL,'text' => 'Configuración','route' => NULL, 'active' => null,'icon' => 'fas fa-cog','order' => 9999,'menu_id' => NULL,],
             ['id' => 9001,'coddoc' => 'LST','text' => 'Listas','route' => 'list', 'active' => 'list*','icon' => 'fas fa-list-ol','order' => 1,'menu_id' => 9000,],
-            ['id' => 9002,'coddoc' => 'VAR','text' => 'Variables','route' => 'variable', 'active' => 'variable*','icon' => 'fas fa-ruler','order' => 2,'menu_id' => 9000,],
         ];
 
         DB::table('menus')->insert($menus);

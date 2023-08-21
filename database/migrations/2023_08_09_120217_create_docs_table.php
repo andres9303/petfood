@@ -27,10 +27,6 @@ return new class extends Migration
             $table->integer('state')->default(1);
             $table->text('text')->nullable();
             $table->integer('concept')->nullable();
-            $table->integer('ref')->nullable();
-            $table->decimal('cant', 20, 2)->nullable();
-            $table->decimal('saldo', 20, 2)->nullable();
-            $table->decimal('value', 20, 2)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('item_id')->nullable();
             $table->unsignedBigInteger('doc_id')->nullable();

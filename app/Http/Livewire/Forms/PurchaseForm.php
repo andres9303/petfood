@@ -139,7 +139,7 @@ class PurchaseForm extends Component
                 }
                 catch (\Exception $e) {
                     DB::rollBack();
-                    $this->error = 'Ha ocurrido un error al agregar el producto';
+                    $this->error = 'Ha ocurrido un error al agregar el producto'. $e->getMessage();
                 }
             }
         }
@@ -179,7 +179,7 @@ class PurchaseForm extends Component
 
     public function calculateTotals()
     {
-        $this->doc = Doc::find($this->doc->id);//BUG no actualiza el modelo
+        $this->doc->refresh();
         $this->orders = $this->doc && $this->doc->id ? $this->doc->mvtos->where('state', 1) : Order::where('menu_id', 602)->get();
         $sub = 0;
         $taxes = 0;

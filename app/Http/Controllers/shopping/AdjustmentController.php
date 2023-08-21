@@ -63,6 +63,7 @@ class AdjustmentController extends Controller
             ]);
 
             $product = Product::find($request->mvtos[0]['product_id']);
+            $valuet = $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'];
             $cant_base = $this->unitConversionService->convert($request->mvtos[0]['cant'], $request->mvtos[0]['unit_id'], $product->unit_id);
             if ($cant_base == 0)
             {
@@ -70,7 +71,7 @@ class AdjustmentController extends Controller
                 return back()->withInput()->with('error', 'La unidad seleccionada no se puede convertir a la unidad base del producto.');
             }
 
-            $valueu_base = $request->mvtos[0]['valueu'] / $cant_base;
+            $valueu_base = $valuet / ($cant_base <> 0 ? $cant_base : 1);
 
             Mvto::create([
                 'doc_id' => $adjustment->id,
@@ -79,12 +80,12 @@ class AdjustmentController extends Controller
                 'cant' => $request->mvtos[0]['cant'],
                 'valueu' => $request->mvtos[0]['valueu'],
                 'iva' => 0,
-                'valuet' => $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'],
+                'valuet' => $valuet,
                 'unit2_id' => $product->unit_id,
                 'cant2' => $cant_base,
                 'valueu2' => $valueu_base,
                 'iva2' => 0,
-                'valuet2' => $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'],
+                'valuet2' => $valuet,
             ]);
 
             DB::commit();
@@ -127,6 +128,7 @@ class AdjustmentController extends Controller
             ]);
 
             $product = Product::find($request->mvtos[0]['product_id']);
+            $valuet = $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'];
             $cant_base = $this->unitConversionService->convert($request->mvtos[0]['cant'], $request->mvtos[0]['unit_id'], $product->unit_id);
             if ($cant_base == 0)
             {
@@ -134,7 +136,7 @@ class AdjustmentController extends Controller
                 return back()->withInput()->with('error', 'La unidad seleccionada no se puede convertir a la unidad base del producto.');
             }
 
-            $valueu_base = $request->mvtos[0]['valueu'] / $cant_base;
+            $valueu_base = $valuet / ($cant_base <> 0 ? $cant_base : 1);
 
             $adjustment->mvtos()->update([
                 'product_id' => $request->mvtos[0]['product_id'],
@@ -142,12 +144,12 @@ class AdjustmentController extends Controller
                 'cant' => $request->mvtos[0]['cant'],
                 'valueu' => $request->mvtos[0]['valueu'],
                 'iva' => 0,
-                'valuet' => $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'],
+                'valuet' => $valuet,
                 'unit2_id' => $product->unit_id,
                 'cant2' => $cant_base,
                 'valueu2' => $valueu_base,
                 'iva2' => 0,
-                'valuet2' => $request->mvtos[0]['cant'] * $request->mvtos[0]['valueu'],
+                'valuet2' => $valuet,
             ]);
 
             DB::commit();

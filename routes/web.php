@@ -16,6 +16,7 @@ use App\Http\Controllers\pet\AnimalController;
 use App\Http\Controllers\pet\PetController;
 use App\Http\Controllers\pet\RaceController;
 use App\Http\Controllers\pet\TraceController;
+use App\Http\Controllers\report\ReportController;
 use App\Http\Controllers\security\MenuController;
 use App\Http\Controllers\security\PermissionController;
 use App\Http\Controllers\security\RoleController;
@@ -75,6 +76,19 @@ Route::get('shopping/shopping-lists', [ShoppingListController::class, 'index'])-
 Route::resource('shopping/direct-purchases', DirectPurchaseController::class)->middleware(['auth', 'can:view-menu,"direct-purchase"'])->except(['show', 'destroy'])->names('direct-purchase');
 Route::resource('shopping/bills', BillController::class)->middleware(['auth', 'can:view-menu,"bill"'])->except(['show'])->names('bill');
 Route::resource('shopping/adjustments', AdjustmentController::class)->middleware(['auth', 'can:view-menu,"adjustment"'])->except(['show'])->names('adjustment');
+
+//Reportes
+Route::get('report/inventory', [ReportController::class, 'inventory'])->middleware(['auth', 'can:view-menu,"report.inventory"'])->name('report.inventory.index');
+Route::get('report/movements', [ReportController::class, 'movements'])->middleware(['auth', 'can:view-menu,"report.movements"'])->name('report.movements.index');
+Route::get('report/order', [ReportController::class, 'order'])->middleware(['auth', 'can:view-menu,"report.order"'])->name('report.order.index');
+Route::get('report/purchase', [ReportController::class, 'purchase'])->middleware(['auth', 'can:view-menu,"report.purchase"'])->name('report.purchase.index');
+Route::get('report/bill', [ReportController::class, 'bill'])->middleware(['auth', 'can:view-menu,"report.bill"'])->name('report.bill.index');
+Route::get('report/production', [ReportController::class, 'production'])->middleware(['auth', 'can:view-menu,"report.production"'])->name('report.production.index');
+Route::get('report/sale', [ReportController::class, 'sale'])->middleware(['auth', 'can:view-menu,"report.sale"'])->name('report.sale.index');
+Route::get('report/dispatch', [ReportController::class, 'dispatch'])->middleware(['auth', 'can:view-menu,"report.dispatch"'])->name('report.dispatch.index');
+Route::get('report/balance', [ReportController::class, 'balance'])->middleware(['auth', 'can:view-menu,"report.balance"'])->name('report.balance.index');
+Route::get('report/cost', [ReportController::class, 'cost'])->middleware(['auth', 'can:view-menu,"report.cost"'])->name('report.cost.index');
+
 
 //Configuración
 Route::resource('config/lists', ListController::class)->middleware(['auth', 'can:view-menu,"list"'])->except(['show'])->names('list');
